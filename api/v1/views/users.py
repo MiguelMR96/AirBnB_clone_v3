@@ -8,9 +8,8 @@ from models.user import User
 from flask import jsonify, abort, request
 
 
-# method by default is GET
-@app_views.route('/users', strict_slashes=False)
-@app_views.route('/users//<user_id>', strict_slashes=False)
+@app_views.route('/users', strict_slashes=False, methods=['GET'])
+@app_views.route('/users//<user_id>', strict_slashes=False, methods=['GET'])
 def all_users(user_id=None):
     """ method to list all users
     """
