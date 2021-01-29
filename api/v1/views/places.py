@@ -24,7 +24,7 @@ def all_places(city_id=None):
         abort(404)
 
 
-@app_views.route('places/<place_id>', strict_slashes=False, methods=['GET'])
+@app_views.route('/places/<place_id>', strict_slashes=False, methods=['GET'])
 def one_place(place_id=None):
     """ to list one plane
     """
@@ -35,7 +35,7 @@ def one_place(place_id=None):
         abort(404)
 
 
-@app_views.route('places/<place_id>', strict_slashes=False, methods=['DELETE'])
+@app_views.route('/places/<place_id>', strict_slashes=False, methods=['DELETE'])
 def delete_place(place_id=None):
     """ to delete one place
     """
@@ -47,7 +47,7 @@ def delete_place(place_id=None):
     abort(404)
 
 
-@app_views.route('cities/<city_id>/places',
+@app_views.route('/cities/<city_id>/places',
                  strict_slashes=False, methods=['POST'])
 def post_place(city_id=None):
     """ to create a new place
@@ -74,7 +74,7 @@ def post_place(city_id=None):
     abort(404)
 
 
-@app_views.route('places/<place_id>', strict_slashes=False, methods=['PUT'])
+@app_views.route('/places/<place_id>', strict_slashes=False, methods=['PUT'])
 def put_place(place_id=None):
     """ to update a place
     """
@@ -89,3 +89,4 @@ def put_place(place_id=None):
                 storage.save()
                 return (jsonify(item.to_dict()))
         abort(404)
+    abort(404)

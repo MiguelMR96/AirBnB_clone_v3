@@ -69,7 +69,7 @@ def post_review(place_id=None):
         if is_json.get('text') is None:
             abort(400, description="Missing text")
 
-        new_review = (**is_json)
+        new_review = Review(**is_json)
         new_review.save()
         return(jsonify(new_review.to_dict())), 201
 
