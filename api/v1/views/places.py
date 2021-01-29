@@ -26,8 +26,8 @@ def all_places(city_id=None):
 
 @app_views.route('places/<place_id>', strict_slashes=False, methods=['GET'])
 def one_place(place_id=None):
-    """" to list one plane
-    """"
+    """ to list one plane
+    """
     if place_id:
         for item in storage.all(Place).values():
             if place_id == item.id:
@@ -37,8 +37,8 @@ def one_place(place_id=None):
 
 @app_views.route('places/<place_id>', strict_slashes=False, methods=['DELETE'])
 def delete_place(place_id=None):
-    """" to delete one place
-    """"
+    """ to delete one place
+    """
     for item in storage.all(Place).values():
             if place_id == item.id:
                 item.delete()
@@ -50,8 +50,8 @@ def delete_place(place_id=None):
 @app_views.route('cities/<city_id>/places',
                  strict_slashes=False, methods=['POST'])
 def post_place(city_id=None):
-    """" to create a new place
-    """"
+    """ to create a new place
+    """
     if city_id:
         is_json = request.get_json()
         if is_json is None:
@@ -76,8 +76,8 @@ def post_place(city_id=None):
 
 @app_views.route('places/<place_id>', strict_slashes=False, methods=['PUT'])
 def put_place(place_id=None):
-    """" to update a place
-    """"
+    """ to update a place
+    """
     if place_id:
         for item in storage.all(Place).values():
             if place_id == item.id:
