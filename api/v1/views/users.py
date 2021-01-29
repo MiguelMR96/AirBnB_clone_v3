@@ -14,6 +14,8 @@ from flask import jsonify, abort, request
 @app_views.route('/users', strict_slashes=False)
 @app_views.route('/users//<user_id>', strict_slashes=False)
 def all_users(user_id=None):
+    """ method to list all users
+    """
     new_list = []
     if user_id:
         for item in storage.all(User).values():
@@ -28,6 +30,8 @@ def all_users(user_id=None):
 
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['DELETE'])
 def delete_user(user_id=None):
+    """ method to delete an users
+    """
     if user_id:
         user = storage.get(User, user_id)
         user.delete()
@@ -37,6 +41,8 @@ def delete_user(user_id=None):
 
 @app_views.route('/users', strict_slashes=False, methods=['POST'])
 def create_user():
+    """ method to create an users
+    """
     is_json = request.get_json()
     if is_json is None:
         abort(400, description="Not a Json")
@@ -54,6 +60,8 @@ def create_user():
 
 @app_views.route('/users/<user_id>', strict_slashes=False, methods=['PUT'])
 def update_user(user_id=None):
+    """ method to update an users
+    """
     if user_id:
         for item in storage.all(User).values():
             if user_id == item.id:
