@@ -35,7 +35,8 @@ def one_place(place_id=None):
         abort(404)
 
 
-@app_views.route('/places/<place_id>', strict_slashes=False, methods=['DELETE'])
+@app_views.route('/places/<place_id>',
+                 strict_slashes=False, methods=['DELETE'])
 def delete_place(place_id=None):
     """ to delete one place
     """
