@@ -4,8 +4,6 @@
 from api.v1.views import app_views
 from models import storage
 from models.base_model import BaseModel
-from models.city import City
-from models.state import State
 from models.user import User
 from flask import jsonify, abort, request
 
@@ -34,6 +32,8 @@ def delete_user(user_id=None):
     """
     if user_id:
         user = storage.get(User, user_id)
+        if user is None:
+            abort(404)
         user.delete()
         storage.save()
         return (jsonify({}))

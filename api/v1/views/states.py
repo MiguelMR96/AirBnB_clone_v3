@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""[summary]
+""" RESTful Api - use methods HTTP in States
 """
 from api.v1.views import app_views
 from models import storage
