@@ -9,7 +9,7 @@ from flask import jsonify, abort, request
 
 
 @app_views.route('/users', strict_slashes=False, methods=['GET'])
-@app_views.route('/users//<user_id>', strict_slashes=False, methods=['GET'])
+@app_views.route('/users/<user_id>', strict_slashes=False, methods=['GET'])
 def all_users(user_id=None):
     """ method to list all users
     """
@@ -29,13 +29,12 @@ def all_users(user_id=None):
 def delete_user(user_id=None):
     """ method to delete an users
     """
-    if user_id:
-        user = storage.get(User, user_id)
-        if user is None:
-            abort(404)
-        user.delete()
-        storage.save()
-        return (jsonify({}))
+    for item in storage.all(User).values():
+        if user_id == item.id:
+            item.delete()
+            storage.save()
+            return (jsonify({}))
+    abort(404)
 
 
 @app_views.route('/users', strict_slashes=False, methods=['POST'])
