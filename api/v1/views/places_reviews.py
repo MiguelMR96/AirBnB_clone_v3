@@ -86,7 +86,7 @@ def put_review(review_id=None):
     """
     if review_id:
         for item in storage.all(Review).values():
-            if place_id == item.id:
+            if review_id == item.id:
                 is_json = request.get_json()
                 if is_json is None:
                     abort(400, description="Not a Json")
