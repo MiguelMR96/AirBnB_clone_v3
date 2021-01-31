@@ -72,6 +72,7 @@ def post_place(city_id=None):
             abort(400, description="Missing name")
 
         new_place = Place(**is_json)
+        new_place.city_id = city_id
         new_place.save()
         return(jsonify(new_place.to_dict())), 201
 
