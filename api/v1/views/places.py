@@ -6,6 +6,7 @@ from models import storage
 from models.base_model import BaseModel
 from models.place import Place
 from models.city import City
+from models.user import User
 from flask import jsonify, abort, request
 
 
@@ -54,6 +55,9 @@ def post_place(city_id=None):
     """ to create a new place
     """
     if city_id:
+        if storage.get(City, city_id) is None:
+            abort(404)
+
         is_json = request.get_json()
         if is_json is None:
             abort(400, description="Not a Json")
@@ -61,8 +65,7 @@ def post_place(city_id=None):
         if is_json.get('user_id') is None:
             abort(400, description="Missing user_id")
 
-        user = storage.get(User, is_json.get('user_id'))
-        if user is None:
+        if storage.get(User, is_json.get('user_id')) is None:
             abort(404)
 
         if is_json.get('name') is None:
