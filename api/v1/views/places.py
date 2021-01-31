@@ -89,7 +89,19 @@ def put_place(place_id=None):
                 if is_json is None:
                     abort(400, description="Not a Json")
 
-                value_update = Place(**is_json)
+                if is_json.get("name"):
+                    item.name = is_json.get("name")
+                item.description = is_json.get("description")
+                if is_json.get("number_rooms"):
+                    item.number_rooms = is_json.get("number_rooms")
+                if is_json.get("number_bathrooms"):
+                    item.number_bathrooms = is_json.get("number_bathrooms")
+                if is_json.get("max_guest"):
+                    item.max_guest = is_json.get("max_guest")
+                if is_json.get("price_by_night"):
+                    item.price_by_night = is_json.get("price_by_night")
+                item.latitude = is_json.get("latitude")
+                item.longitude = is_json.get("longitude")
                 storage.save()
                 return (jsonify(item.to_dict()))
         abort(404)
