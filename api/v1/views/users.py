@@ -67,7 +67,10 @@ def update_user(user_id=None):
                 if is_json is None:
                     abort(400, description="Not a Json")
 
-                item.password = is_json.get('password')
+                item.first_name = is_json.get('first_name')
+                item.last_name = is_json.get('last_name')
+                if is_json.get('password'):
+                    item.password = is_json.get('password')
                 storage.save()
                 return (jsonify(item.to_dict()))
         abort(404)
