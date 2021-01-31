@@ -6,6 +6,7 @@ from models import storage
 from models.base_model import BaseModel
 from models.place import Place
 from models.review import Review
+from models.user import User
 from flask import jsonify, abort, Response, request
 
 
@@ -55,6 +56,9 @@ def post_review(place_id=None):
     """ to create a new review
     """
     if place_id:
+        if storage.get(Place, place_id) is None:
+            abort(404)
+
         is_json = request.get_json()
         if is_json is None:
             abort(400, description="Not a Json")
@@ -62,14 +66,14 @@ def post_review(place_id=None):
         if is_json.get('user_id') is None:
             abort(400, description="Missing user_id")
 
-        user = storage.get(User, is_json.get('user_id'))
-        if user is None:
+        if storage.get(User, is_json.get('user_id')) is None:
             abort(404)
 
         if is_json.get('text') is None:
             abort(400, description="Missing text")
 
         new_review = Review(**is_json)
+        new_review.place_id = place_id
         new_review.save()
         return(jsonify(new_review.to_dict())), 201
 
@@ -87,7 +91,7 @@ def put_review(review_id=None):
                 if is_json is None:
                     abort(400, description="Not a Json")
 
-                value_update = Review(**is_json)
+                item.text = is_json.get("text")
                 storage.save()
                 return (jsonify(item.to_dict()))
         abort(404)
