@@ -71,7 +71,7 @@ class FileStorage:
 
     def get(self, cls, id):
         """Method to retrieve one object"""
-        all_states = self.all(State)
+        all_states = self.all(cls)
         for state_key in all_states.keys():
             class_id = state_key.split('.')[1]
             if id == class_id:
